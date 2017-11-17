@@ -20,6 +20,6 @@ module RegFile(
                 regFile[i] <= 0;
         end
         else if(RegWre == 1 && WriteReg != 0) // WriteReg != 0，$0 寄存器不能修改
-        regFile[WriteReg] <= WriteData; // 写寄存器
+            regFile[WriteReg] <= WriteData; // 写寄存器
     end
 endmodule
