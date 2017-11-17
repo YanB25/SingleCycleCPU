@@ -35,7 +35,7 @@ module displayReg(
     assign pos_ctrl = pos_sign;
     
     reg [3:0] cur_data;
-    always@(pos_sign or clr) begin
+    always@(*) begin
         if (clr == 1) 
             cur_data = 4'b1111;
         else
