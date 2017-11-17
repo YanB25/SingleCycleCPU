@@ -8,8 +8,8 @@ module display_tb();
         .clk1k5(clk1k5)
     );
     wire clr = 0;
-    wire pos_ctrl;
-    wire num_ctrl;
+    wire [3:0]pos_ctrl;
+    wire [7:0]num_ctrl;
     displayReg display_reg(
         .CLK_190hz(clk1k5),
         .disp_data(disp_data),
