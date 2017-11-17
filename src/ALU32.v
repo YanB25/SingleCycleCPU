@@ -5,9 +5,11 @@ module ALU32(
     input [31:0] rega,
     input [31:0] regb,
     output reg [31:0] result,
-    output zero
+    output zero,
+    output sign
     );
     assign zero = (result==0)?1:0;
+    assign sign = result[31];
     always @(*) begin
         case (ALUopcode)
             `ALUAdd : result = rega + regb;
@@ -21,8 +23,8 @@ module ALU32(
                 else if (rega[31] == 0 && regb[31]==1) result = 0;
                 else if ( rega[31] == 1 && regb[31]==0) result = 1;
                 else result = 0;
-            `ALUSll : result = regb << reba;
             end
+            `ALUSll : result = regb << rega;
             default : begin
                 result = 8'h00000000;
                 $display (" no match");

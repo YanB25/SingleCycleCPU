@@ -29,3 +29,29 @@
 `define RelJmp 2'b01 //relative jump
 `define AbsJmp 2'b10 //absolute jump
 `define HALT 2'b11 // halt
+
+// for instruction
+// op code
+`define opRFormat 6'b000000
+`define opADD 6'b000000
+`define opSUB 6'b000000
+`define opAND 6'b000000
+`define opOR 6'b000000
+`define opSLL 6'b000000
+`define opSLT 6'b000000
+`define opADDI 6'b001000
+`define opORI 6'b001101
+`define opSW 6'b101011
+`define opLW 6'b100011
+`define opBEQ 6'b000100
+`define opBNE 6'b000101
+`define opBGTZ 6'b000111
+`define opJ 6'b000010
+`define opHALT 6'b111111
+// func code
+`define funcADD 6'b100000
+`define funcSUB 6'b100011
+`define funcAND 6'b100100
+`define funcOR 6'b100101
+`define funcSLL 6'b000000
+`define funcSLT 6'b101010
