@@ -2,12 +2,15 @@
 `timescale 1ns / 1ps
 module CPU (
     input clk,
-    input RST,
+    input nRST,
     input key_in,
     input [1:0]dispSel,
     output [3:0] pos_ctrl,
     output [7:0] num_ctrl
     );
+    wire RST;
+    wire press_clk;
+    assign RST = ~nRST;
     wire [3:0] pos_ctrl;
     wire [7:0] num_ctrl;
     wire [31:0] pc;
@@ -16,14 +19,14 @@ module CPU (
     wire [25:0] immd26;
     wire [1:0]PCSel;
     PC pcinstance(
-        .clk(clk),
+        .clk(press_clk),
         .RST(RST),
         .newpc(newpc),
         .pc(pc)
     );
 
     PCHelper pchelper(
-        .clk(clk),
+        .clk(press_clk),
         .RST(RST),
         .pc(pc),
         .immd16(immd16),
@@ -94,7 +97,7 @@ module CPU (
     wire [31:0] RAMOut;
     assign RegWriteData = DB == `FromALU ? ALUResult : RAMOut;
     RegFile regfile(
-        .CLK(clk),
+        .CLK(press_clk),
         .RST(RST),
         .RegWre(RegWr),
         .ReadReg1(rs),
@@ -128,7 +131,7 @@ module CPU (
     );
 
     RAM ram(
-        .clk(clk),
+        .clk(press_clk),
         .address(ALUResult),
         .writeData(ReadData2),
         .nRD(nRD),
@@ -162,5 +165,11 @@ module CPU (
         .clr(RST),
         .pos_ctrl(pos_ctrl),
         .num_ctrl(num_ctrl)
+    );
+
+    VibrationEli vibrationeli(
+        .clk(clk),
+        .key_in(key_in),
+        .sig_out(press_clk)
     );
 endmodule
