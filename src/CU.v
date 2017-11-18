@@ -66,7 +66,7 @@ module CU (
                     `funcSLT : ALUop = `ALUCmps;
                 endcase
             end
-            `opORI : ALUop = `ALUOr
+            `opORI : ALUop = `ALUOr;
             `opBEQ, `opBNE, `opBGTZ : ALUop = `ALUSub;
             default : ALUop = `ALUAdd;
         endcase

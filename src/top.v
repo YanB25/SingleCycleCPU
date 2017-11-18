@@ -7,7 +7,7 @@ module CPU (
     wire [3:0] pos_ctrl;
     wire [7:0] num_ctrl;
     wire [31:0] pc;
-    wire [31:0]] newpc;
+    wire [31:0] newpc;
     wire [15:0] immd16;
     wire [25:0] immd26;
     PC pc(
@@ -130,3 +130,4 @@ module CPU (
         .nWR(nWR),
         .Dataout(RAMOut)
     );
+endmodule

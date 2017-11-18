@@ -9,9 +9,9 @@ module Decoder(
     output [4:0] rt,
     output [4:0] rd,
     output [15:0] immd16,
-    output [25:0] immd26,
+    output [25:0] immd26
     );
-    assign op = ins[31:26]
+    assign op = ins[31:26];
     assign func = ins[5:0];
     assign sftamt = ins[10:6];
     assign rs = ins[25:21];
