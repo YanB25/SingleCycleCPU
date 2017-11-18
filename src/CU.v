@@ -13,7 +13,7 @@ module CU (
     output nWR,
     output RegDst,
     output ExtSel,
-    output reg [1:0]PCSrc,
+    output reg [1:0]PCSel,
     output reg [2:0]ALUop
     );
     assign ALUScrA = (Op == `opSLL && Func == `funcSLL) ? `FromSA : `FromData;
@@ -40,16 +40,16 @@ module CU (
     // RegDst
     assign RegDst = (Op == `opLW) ? `FromRt : `FromRd;
     // ExtSel
-    assign ExtSel = (Op == `opSLL) ? `ZeroExd : `SignExd;
-    // PCSrc
+    assign ExtSel = (Op == `opORI) ? `ZeroExd : `SignExd;
+    // PCSel
     always@(*) begin
         case (Op) 
-            `opBEQ : PCSrc = ZERO == 1 ? `RelJmp : `NextIns;
-            `opBNE : PCSrc = ZERO == 0 ? `RelJmp : `NextIns;
-            `opBGTZ : PCSrc = SIGN == 0 ? `RelJmp : `NextIns;
-            `opJ : PCSrc = `AbsJmp;
-            `opHALT : PCSrc = `HALT;
-            default : PCSrc =  `NextIns;
+            `opBEQ : PCSel = ZERO == 1 ? `RelJmp : `NextIns;
+            `opBNE : PCSel = ZERO == 0 ? `RelJmp : `NextIns;
+            `opBGTZ : PCSel = SIGN == 0 ? `RelJmp : `NextIns;
+            `opJ : PCSel = `AbsJmp;
+            `opHALT : PCSel = `HALT;
+            default : PCSel =  `NextIns;
         endcase
     end
     
