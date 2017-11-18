@@ -2,7 +2,11 @@
 `timescale 1ns / 1ps
 module CPU (
     input clk,
-    input RST
+    input RST,
+    input key_in,
+    input [1:0]dispSel,
+    output [3:0] pos_ctrl,
+    output [7:0] num_ctrl
     );
     wire [3:0] pos_ctrl;
     wire [7:0] num_ctrl;
@@ -130,5 +134,33 @@ module CPU (
         .nRD(nRD),
         .nWR(nWR),
         .Dataout(RAMOut)
+    );
+
+    // below for vitration elimination and display
+    wire clk1k5;
+    clk_div clk_div_instance(
+        .clk(clk),
+        .clk1k5(clk1k5)
+    );
+    wire [15:0] disp_data; 
+    DisplaySelection display_selection(
+        .dispSel(dispSel),
+        .pc(pc[7:0]),
+        .newpc(newpc[7:0]),
+        .rs({3'b000, rs}),
+        .rs_data(ReadData1[7:0]),
+        .rt({3'b000, rt}),
+        .rt_data(ReadData2[7:0]),
+        .ALUResult(ALUResult[7:0]),
+        .RegWriteData(RegWriteData[7:0]),
+        .disp_data(disp_data)
+    );
+
+    displayReg display_reg(
+        .CLK_190hz(clk1k5),
+        .disp_data(disp_data),
+        .clr(RST),
+        .pos_ctrl(pos_ctrl),
+        .num_ctrl(num_ctrl)
     );
 endmodule

@@ -55,3 +55,9 @@
 `define funcOR 6'b100101
 `define funcSLL 6'b000000
 `define funcSLT 6'b101010
+
+// for display module
+`define PC_NewPC 2'b00
+`define Rs_RsData 2'b01
+`define Rt_RtData 2'b10
+`define ALU_DB 2'b11

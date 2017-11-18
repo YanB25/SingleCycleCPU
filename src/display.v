@@ -36,7 +36,7 @@ module displayReg(
     
     reg [3:0] cur_data;
     always@(*) begin
-        if (clr == 1) 
+        if (clr == 0) 
             cur_data = 4'b1111;
         else
           case(pos_sign)
