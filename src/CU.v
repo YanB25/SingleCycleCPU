@@ -38,7 +38,7 @@ module CU (
     // nWR
     assign nWR = (Op == `opSW) ? 0: 1;
     // RegDst
-    assign RegDst = (Op == `opLW) ? `FromRt : `FromRd;
+    assign RegDst = (Op == `opLW || Op ==`opADDI || Op == `opORI) ? `FromRt : `FromRd;
     // ExtSel
     assign ExtSel = (Op == `opORI) ? `ZeroExd : `SignExd;
     // PCSel
@@ -64,6 +64,7 @@ module CU (
                     `funcOR : ALUop = `ALUOr;
                     `funcSLL : ALUop = `ALUSll;
                     `funcSLT : ALUop = `ALUCmps;
+                    default : ALUop = `ALUAdd; //maybe bugs
                 endcase
             end
             `opORI : ALUop = `ALUOr;

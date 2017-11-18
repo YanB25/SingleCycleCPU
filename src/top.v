@@ -10,7 +10,8 @@ module CPU (
     wire [31:0] newpc;
     wire [15:0] immd16;
     wire [25:0] immd26;
-    PC pc(
+    wire [1:0]PCSel;
+    PC pcinstance(
         .clk(clk),
         .RST(RST),
         .newpc(newpc),
@@ -48,7 +49,8 @@ module CPU (
         .rt(rt),
         .rd(rd),
         .immd16(immd16),
-        .immd26(immd26)
+        .immd26(immd26),
+        .sftamt(sftamt)
     );
 
     wire ZERO;
@@ -61,7 +63,6 @@ module CPU (
     wire nWR;
     wire RegDst;
     wire ExtSel;
-    wire [1:0]PCSel;
     wire [2:0]ALUop;
     CU cu(
         .Op(op),
@@ -97,7 +98,7 @@ module CPU (
         .WriteReg(WriteReg),
         .WriteData(RegWriteData),
         .ReadData1(ReadData1),
-        .ReadData2(ReadData2),
+        .ReadData2(ReadData2)
     );
 
     wire [31:0] exd_immd;

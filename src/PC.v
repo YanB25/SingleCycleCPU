@@ -23,10 +23,11 @@ module PCHelper(
     initial begin
         newpc = 0;
     end
+    wire [31:0]exd_immd16 = { {16{immd16[15]}}, immd16};
     always@(negedge clk or negedge RST) begin
         case (sel)
             `NextIns : newpc <= RST == 0 ? 0 : pc + 4;
-            `RelJmp : newpc <= RST == 0 ? 0 : (pc + 4 + (immd16 << 2));
+            `RelJmp : newpc <= RST == 0 ? 0 : (pc + 4 + (exd_immd16 << 2));
             `AbsJmp : newpc <= RST == 0 ? 0 : {pc[31:28], immd26, 2'b00};
             `HALT : newpc <= RST == 0 ? 0 : pc;
         endcase
