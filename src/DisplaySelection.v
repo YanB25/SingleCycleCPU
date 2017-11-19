@@ -12,10 +12,13 @@ module DisplaySelection(
     input [7:0] RegWriteData,
     output reg [15:0] disp_data
     );
-    case (dispSel)
-        `PC_New_C : disp_data = {pc, newpc};
-        `Rs_RsData : disp_data = {rs, rs_data};
-        `Rt_RtData : disp_data = {rt, rt_data};
-        `ALU_DB : disp_data = {ALUResult, RegWriteData};
-    endcase
+    always@(*) begin
+        case (dispSel)
+            `PC_NewPC : disp_data = {pc, newpc};
+            `Rs_RsData : disp_data = {rs, rs_data};
+            `Rt_RtData : disp_data = {rt, rt_data};
+            `ALU_DB : disp_data = {ALUResult, RegWriteData};
+        endcase
+    end
+
 endmodule

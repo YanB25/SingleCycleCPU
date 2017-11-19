@@ -7,6 +7,7 @@ module CPU (
     input [1:0]dispSel,
     output [3:0] pos_ctrl,
     output [7:0] num_ctrl
+    
     );
     wire RST;
     wire press_clk;
@@ -26,8 +27,6 @@ module CPU (
     );
 
     PCHelper pchelper(
-        .clk(press_clk),
-        .RST(RST),
         .pc(pc),
         .immd16(immd16),
         .immd26(immd26),
@@ -166,10 +165,11 @@ module CPU (
         .pos_ctrl(pos_ctrl),
         .num_ctrl(num_ctrl)
     );
-
+    wire npress_clk;
+    assign press_clk = ~npress_clk;
     VibrationEli vibrationeli(
         .clk(clk),
         .key_in(key_in),
-        .sig_out(press_clk)
+        .sig_out(npress_clk)
     );
 endmodule
