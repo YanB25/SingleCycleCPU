@@ -12,8 +12,6 @@ module CPU (
     wire RST;
     wire press_clk;
     assign RST = ~nRST;
-    wire [3:0] pos_ctrl;
-    wire [7:0] num_ctrl;
     wire [31:0] pc;
     wire [31:0] newpc;
     wire [15:0] immd16;
