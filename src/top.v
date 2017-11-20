@@ -19,8 +19,6 @@ module CPU (
     );
 
     PCHelper pchelper(
-        .clk(clk),
-        .RST(RST),
         .pc(pc),
         .immd16(immd16),
         .immd26(immd26),

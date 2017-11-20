@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 module top_tb();
-reg clk = 0;
+reg clk = 1;
 reg RST = 1;
 always begin
     #5;

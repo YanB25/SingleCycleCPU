@@ -12,8 +12,6 @@ module PC(
 endmodule
 
 module PCHelper(
-    input clk,
-    input RST,
     input [31:0] pc,
     input [15:0] immd16,
     input [25:0] immd26,
@@ -24,12 +22,12 @@ module PCHelper(
         newpc = 0;
     end
     wire [31:0]exd_immd16 = { {16{immd16[15]}}, immd16};
-    always@(negedge clk or negedge RST) begin
+    always@(*) begin
         case (sel)
-            `NextIns : newpc <= RST == 0 ? 0 : pc + 4;
-            `RelJmp : newpc <= RST == 0 ? 0 : (pc + 4 + (exd_immd16 << 2));
-            `AbsJmp : newpc <= RST == 0 ? 0 : {pc[31:28], immd26, 2'b00};
-            `HALT : newpc <= RST == 0 ? 0 : pc;
+            `NextIns : newpc <= pc + 4;
+            `RelJmp : newpc <= (pc + 4 + (exd_immd16 << 2));
+            `AbsJmp : newpc <= {pc[31:28], immd26, 2'b00};
+            `HALT : newpc <= pc;
         endcase
     end
 endmodule
