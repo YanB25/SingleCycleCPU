@@ -46,7 +46,7 @@ module CU (
         case (Op) 
             `opBEQ : PCSel = ZERO == 1 ? `RelJmp : `NextIns;
             `opBNE : PCSel = ZERO == 0 ? `RelJmp : `NextIns;
-            `opBGTZ : PCSel = SIGN == 0 ? `RelJmp : `NextIns;
+            `opBGTZ : PCSel = (SIGN == 0 && ZERO == 0) ? `RelJmp : `NextIns;
             `opJ : PCSel = `AbsJmp;
             `opHALT : PCSel = `HALT;
             default : PCSel =  `NextIns;
